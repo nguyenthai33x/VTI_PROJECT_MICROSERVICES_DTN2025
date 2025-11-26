@@ -42,6 +42,8 @@ public class SecurityConfiguration {
     private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     private final HttpCookieOAuthorizationRequestRepository httpCookieOAuthorizationRequestRepository;
 
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -69,8 +71,10 @@ public class SecurityConfiguration {
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
-                        .failureHandler(oAuth2AuthenticationFailureHandler)
-                );
+                        .failureHandler(oAuth2AuthenticationFailureHandler))
+                .securityMatcher(WHITE_LIST_URL);
+
+
 
         return http.build();
     }

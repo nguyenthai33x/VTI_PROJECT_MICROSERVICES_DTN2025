@@ -134,8 +134,8 @@ services:
     networks:
       - spring-microservice
 
-  department-service-1:
-    container_name: department-service-1
+  department-service:
+    container_name: department-service
     build:
       context: ./department-service
       dockerfile: Dockerfile
@@ -152,23 +152,23 @@ services:
     networks:
       - spring-microservice
 
-  department-service-2:
-    container_name: department-service-2
-    build:
-      context: ./department-service
-      dockerfile: Dockerfile
-    ports:
-      - "8084:8080"
-    depends_on:
-      - department_db
-      - eureka-server
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://department_db:3306/department_db?createDatabaseIfNotExist=true&characterEncoding=UTF-8&serverTimeZone=UTC&allowPublicKeyRetrieval=true&useSSL=false
-      SPRING_DATASOURCE_USERNAME: hungnv
-      SPRING_DATASOURCE_PASSWORD: 123abc
-      SPRING_APPLICATION_NAME: department-service
-    networks:
-      - spring-microservice
+#  department-service-2:
+#    container_name: department-service-2
+#    build:
+#      context: ./department-service
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8084:8080"
+#    depends_on:
+#      - department_db
+#      - eureka-server
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://department_db:3306/department_db?createDatabaseIfNotExist=true&characterEncoding=UTF-8&serverTimeZone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+#      SPRING_DATASOURCE_USERNAME: hungnv
+#      SPRING_DATASOURCE_PASSWORD: 123abc
+#      SPRING_APPLICATION_NAME: department-service
+#    networks:
+#      - spring-microservice
 
   admin-service:
     build:
@@ -179,8 +179,8 @@ services:
       - "8083:8083"
     depends_on:
       - eureka-server
-      - department-service-1
-      - department-service-2
+      - department-service
+
     networks:
       - spring-microservice
 
